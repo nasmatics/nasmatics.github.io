@@ -1,0 +1,140 @@
+<template name="Event">
+  <section id="Event" class="body">
+    <div>
+      <nav class="tabbed list">
+        <div class="tabNames">
+          <button name="Show" data-search="?type=results" type="button" class="tab">Results</button>
+          <button name="Show" data-search="?type=startlists" type="button" class="tab">Start lists</button>
+          <button name="TeamResults" type="button" class="tab">Team results</button>
+          <button name="Register" type="button" class="adminAccess tab">Registrations</button>
+          <button name="Edit" type="button" class="adminAccess tab">Edit event</button>
+          <button name="RegUpload" type="button" class="adminAccess tab">Upload reg.</button>
+        </div>
+     </nav>
+      <section id="EventBody" class="body">
+      </section>
+    </div>
+  </section>
+  <template name="Index">
+    <div>
+      <section class="tabbed list">
+        <div class="tabNames">
+          <button class="tab" name="event" type="button" {{selectedTab "event"}}>Events</button>
+          <button class="tab" name="series" type="button" {{selectedTab "series"}}>Series</button>
+        </div>
+        <div class="tabBody">
+          <nav>
+            {{addLink}}
+          </nav>
+          <table class="select">
+            <thead>
+              <tr>
+                <th>Name</th><th>Start Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{each "list" template="Row"}}
+            </tbody>
+            <template name="Row">
+              <tr class="{{classes}}">
+                <td>{{displayName}}</td><td>{{date}}</td>
+              </tr>
+            </template>
+          </table>
+        </div>
+      </section>
+    </div>
+  </template>
+  <template name="Show">
+    <section id="Show">
+      <div>
+        {{eachCategory}}
+
+        {{>Action ""}}
+        <template name="Action">
+          <div class="action">
+            {{content}}
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
+
+  <template name="CatList">
+    <tr id="{{catID}}" class="{{type}}">
+      <td><span class="select"></span></td>
+      <td>{{pageLink value=name template="Event.Category" append=_id search=listType}}</td>
+      {{heats}}
+    </tr>
+  </template>
+  <template name="Add">
+    <form id="AddEvent">
+      <h1>Add new event</h1>
+      {{> /Event.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="AddSeries">
+    <form id="AddSeries">
+      <h1>Add new series</h1>
+      {{> /Series.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="Edit">
+    <div id="EditEvent">
+      <form>
+        {{> /Event.Form}}
+        <fieldset class="actions">
+          <button type="submit" name="update">Save</button>
+          <button type="button" name="delete">Delete</button>
+          <button type="button" name="cancel">Cancel</button>
+        </fieldset>
+      </form>
+
+      <div class="categories">
+        <h1>Category formats</h1>
+        {{each "categories" template="Cat"}}
+        <template name="Cat">
+          <label>
+            <span class="name">{{name}}</span>
+            <input name="changeFormat" value="{{eventFormat}}" {{disableSpeed}}>
+            <inlinehelp>
+              <info></info>
+              <popup>{{> /Help.CompFormatLead}}{{> /Help.CompFormatBoulder}}</popup>
+            </inlinehelp>
+            <div class="desc">
+              {{describeFormat}}
+            </div>
+          </label>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <template name="ConfirmDelete">
+    <div>
+      <h1>Delete {{name}}?</h1>
+      <span>Are you sure you want to delete this event?</span>
+    </div>
+  </template>
+
+  <template name="Form">
+    <fieldset class="fields">
+      {{labelField "name"}}
+      {{labelField "date" placeholder="yyyy-mm-dd"}}
+      {{labelField "series_id" includeBlank="none" type="selectMenu" displayValue=seriesName selectList=lazySeriesList popupClass="seriesMenu"}}
+      <label><span class="name">Select team types for this event</span></label>
+      {{> /TeamHelper.AssignTeamTypes}}
+      {{labelField "closed" type="onOff" label="Event state" onLabel="closed" offLabel="open"}}
+    </fieldset>
+  </template>
+</template>

@@ -1,0 +1,87 @@
+@import "global.lessimport";
+
+@keyframes flash-in {
+  from {
+    transform: translate(0px,120%);
+  }
+  to {
+    transform: translate(0px,0%);
+  }
+}
+
+@keyframes flash-out {
+  from {
+    transform: translate(0px,0%);
+  }
+  to {
+    transform: translate(0px,120%);
+  }
+}
+
+@keyframes flash-msg-in {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes flash-msg-out {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
+}
+
+#Flash {
+  position: fixed;
+  left: 10px;
+  bottom: 5px;
+  margin: auto;
+  z-index: 3000;
+  transform: translate(0px,0%);
+  font-size: 16px;
+
+  &:not(.remElm) {
+    animation: flash-in .5s;
+  }
+
+  &.remElm {
+    animation: flash-out .15s;
+  }
+
+  >.m {
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #333;
+    padding: 12px 14px;
+    display: inline-block;
+    background-color: #323232;
+    color: #fff;
+    border-radius: @fixedBorderRadius;
+    .box-shadow-level(3);
+    &:not(.remElm) {
+      animation: flash-msg-in .1s;
+    }
+
+    &.remElm {
+      animation: flash-msg-out .3s;
+    }
+    &:before {
+      .app-inline-icon("close");
+      font-size: 18px;
+      position: relative;
+      float: right;
+      margin-right: 4px;
+      margin-left: 10px;
+    }
+    &.error {
+      background-color: #803232;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<template name="Team" extends="/CrudPage">
+  <template name="Index" extends="/CrudPage.Index">
+    <div id="TeamIndex" {{hasTeamTypeClass}}>
+      <label class="teamType">
+        <span>Team type:</span>
+        <button name="teamType_id" type="button" class="select">{{teamTypePrompt}}</button>
+      </label>
+      <button name="EditTeamType" type="button" class="adminAccess link">Edit <i>{{teamTypePrompt}}</i> team type</button>
+      <nav>
+        <button name="addTeamType" type="button" class="adminAccess link">Add new team type</button>
+        <button class="adminAccess link" type="button" name="addTeam">{{addTeamText}}</button>
+      </nav>
+      <section class="teams index-list">
+        <table class="select">
+          <thead>
+            <tr>
+              <th data-sort="name">Name</th>
+              <th data-sort="shortName">Short name</th>
+              {{sortOrder}}
+            </tr>
+          </thead>
+          <tbody>
+            {{each "rows" template="Row"}}
+          </tbody>
+          <template name="Row">
+            <tr>
+              <td>{{name}}</td><td>{{shortName}}</td>
+            </tr>
+          </template>
+        </table>
+      </section>
+    </div>
+  </template>
+
+  <template name="AddTeamType">
+    <form id="AddTeamType">
+      <h1>Add new team type</h1>
+      {{> /Team.TeamTypeForm}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="EditTeamType">
+    <form id="EditTeamType">
+      <h1>Edit {{name}}</h1>
+      {{> /Team.TeamTypeForm}}
+      <fieldset class="actions">
+        <button type="submit" name="update">Save</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="TeamTypeForm">
+      <fieldset class="fields">
+        {{labelField "name"}}
+        <label>
+          <span class="name">Selected by default</span>
+          <button class="check" name="default" type="button" {{checked}}></button>
+        </label>
+      </fieldset>
+  </template>
+
+  <template name="Add">
+    <form id="AddTeam">
+      <h1>Add new team</h1>
+      {{> /Team.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="Edit">
+    <form id="Edit">
+      <h1>Edit {{name}}</h1>
+      {{> /Team.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="update">Save</button>
+        <button type="button" name="delete">Delete</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="ConfirmDelete">
+    <div>
+      <h1>Delete {{name}}?</h1>
+      <span>Are you sure you want to delete this team?</span>
+    </div>
+  </template>
+
+  <template name="Form">
+    <fieldset class="fields">
+      {{labelField "name"}}
+      {{labelField "shortName"}}
+    </fieldset>
+  </template>
+</template>

@@ -1,0 +1,87 @@
+// Naming Key
+
+// Used in this file only:
+// c = color
+// g = grey
+// p = primary
+
+// Used in other CSS files also:
+// Sel = selected (used for :hover and :active)
+// BG = Background
+// Btn = Button
+// Dlist = Droplist
+
+@colorBackground: #fff;
+@colorText: #444;
+
+@colorHeaderBackground: #000;
+@colorHeaderText: #fff;
+
+@colorInputErrorBG: #fea;
+
+@colorSelectedBackground: #8f8;
+
+@colorWarn: #ba3e1d;
+@colorErrorHighlight: @colorWarn;
+
+//colors
+@cPrimary: #08a;
+@cPrimaryText: darken(@cPrimary, 10%);
+@cButtonSel: desaturate(@cPrimary, 30%);
+@cSecondary: #f50;
+@cSecondaryText: darken(@cSecondary, 10%);
+@cWarn: #d40000;
+@cDisabledFG: #757575;
+@cDisabledBG: #9a9a9a;
+@cGood: #00aa00;
+@cLinkText: @cPrimaryText;
+
+@cDisabled: #808080;
+
+@colorHeader: #dddddd;
+
+// header droplist button
+@colorHeaderDlistBtn: @colorHeader;
+@colorHeaderDlistBtnBG: #2a2a2a;
+@colorHeaderDlistBtnSel: white;
+@colorHeaderDlistBtnBGSel: @cPrimary;
+
+// header droplist
+@colorHeaderDlist:  #4d4d4d;;
+@colorHeaderDlistBG: @colorHeader;
+@colorHeaderDlistBorder: @colorHeaderDlistBtnBG;
+@colorHeaderDlistSel:  white;
+@colorHeaderDlistBGSel: @cButtonSel;
+
+
+// toolbar
+@colorToolbarBtnSel: white;
+@colorToolbarBtnBGSel: @cButtonSel;
+
+// background
+@colorBackground: #f4f4f4;
+
+// general
+@colorShadowMed: fade(black, 50%);
+@colorShadowLight: fade(black, 30%);
+
+// text
+@colorLightText: white;
+
+// forms
+
+@cFormText: #333333;
+
+// tables
+
+// dialogs
+
+@colorDialogBackground: #fdfdff;
+
+// buttons
+@colorButtonBorder: #cccccc;
+
+
+
+// links
+@colorActionLink: @cLinkText;

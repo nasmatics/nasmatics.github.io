@@ -1,0 +1,21 @@
+<template name="Event.TeamResults">
+  <div id="TeamResults">
+    <table class="list">
+      <thead>
+        <tr>
+          <th class="name">{{selectedTeamType teamTypeList}}</th>
+          <th class="points">Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{each "teams" template="Row"}}
+        <template name="Row">
+          <tr>
+            <td class="name">{{team.name}}</td>
+            <td class="points">{{points}}</td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</template>

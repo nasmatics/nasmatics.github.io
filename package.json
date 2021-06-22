@@ -1,0 +1,34 @@
+{
+  "name": "piki",
+  "description": "Indoor climbing competition scoring system.",
+  "license": "AGPL-3.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jacott/piki-scoreboard.git"
+  },
+  "scripts": {
+    "test": "scripts/koru test --isolated"
+  },
+  "keywords": [
+    "climbing",
+    "koru",
+    "node",
+    "js",
+    "javascript"
+  ],
+  "author": "Geoff Jacobsen <geoffjacobsen@gmail.com>",
+  "dependencies": {
+    "archiver": "^3.1.1",
+    "csv-parse": "^4.15.3",
+    "koru": "^0.33.0",
+    "pg-libpq": "^3.1.2"
+  },
+  "devDependencies": {
+    "unzipper": "^0.10.11"
+  },
+  "engines": {
+    "node": ">=12.16.0"
+  },
+  "version": "1.2.9"
+}

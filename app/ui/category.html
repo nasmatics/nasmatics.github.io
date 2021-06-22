@@ -1,0 +1,82 @@
+<template name="Category" extends="/CrudPage">
+  <template name="Index" extends="/CrudPage.Index">
+    <div>
+      <nav>
+        {{pageLink name="addCategory" class="adminAccess link"
+        value="Add new category" template="Category.Add"}}
+      </nav>
+      <section class="categories index-list">
+        <h1>Competitor categories</h1>
+        <table class="select">
+          <thead>
+            <tr>
+              <th data-sort="name">Name</th>
+              <th data-sort="shortName">Short name</th>
+              <th data-sort="group">Group</th>
+              <th data-sort="heatFormat">Format</th>
+            </tr>
+            {{sortOrder}}
+          </thead>
+          <tbody>
+            {{each "rows" template="Row"}}
+          </tbody>
+          <template name="Row">
+            <tr>
+              <td>{{name}}</td><td>{{shortName}}</td><td>{{group}}</td><td>{{heatFormat}}</td>
+            </tr>
+          </template>
+        </table>
+      </section>
+    </div>
+  </template>
+  <template name="Add">
+    <form id="AddCategory">
+      <h1>Add new category</h1>
+      {{> /Category.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="Edit">
+    <form id="EditCategory">
+      <h1>Edit {{name}}</h1>
+      {{> /Category.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="update">Save</button>
+        <button type="button" name="delete">Delete</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="ConfirmDelete">
+    <div>
+      <h1>Delete {{name}}?</h1>
+      <span>Are you sure you want to delete this category?</span>
+    </div>
+  </template>
+
+  <template name="Form">
+    <fieldset class="fields">
+      {{labelField "name"}}
+      {{labelField "shortName"}}
+      {{labelField "group"}}
+      {{labelField "type" selectList=typeList type="selectMenu" includeBlank="Please select"}}
+      <label>
+        <span class="name">
+          Competition format<br>
+        </span>
+        {{field "heatFormat"}}<inlinehelp>
+          <info></info>
+          <popup>{{> /Help.CompFormatLead}}{{> /Help.CompFormatBoulder}}</popup>
+        </inlinehelp>
+      </label>
+      {{labelField "gender" selectList=genderList type="selectMenu" class="on"}}
+      {{labelField "minAge"}}
+      {{labelField "maxAge"}}
+    </fieldset>
+  </template>
+</template>

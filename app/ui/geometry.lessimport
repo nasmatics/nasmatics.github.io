@@ -1,0 +1,16 @@
+@defaultFontSize: 13px;
+@headerFontSize: 14px;
+
+@toolbarHeight: 36px;
+
+@smallDeviceWidth: 800px;
+
+@boardHeaderGap: 15px;
+
+@fixedBorderRadius: 2px;
+
+@bodyWidth: 800px;
+@minBodyWidth: 300px;
+@headerHeight: 60px;
+
+@iconWidth: 16px;

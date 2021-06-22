@@ -1,0 +1,82 @@
+@import "global.lessimport";
+
+#Climber {
+  table {
+    th[data-sort=dateOfBirth] {
+      .sortableWidth(7ex);
+    }
+    th[data-sort=gender] {
+      .sortableWidth(5ex);
+    }
+    th[data-sort=number] {
+      .sortableWidth(10ex);
+    }
+    [name=selectTeamType] {
+      &:before {
+        font-size: 1.2em;
+        content: "more_vert";
+      }
+    }
+ }
+
+  form {
+    margin: 10px;
+
+    font-size: 1.2em;
+    >h1 {
+      font-size: 1.4em;
+    }
+
+    [name=name] {
+      width: 50ex;
+    }
+    [name=dateOfBirth] {
+      width: 11ex;
+    }
+  }
+
+  .mergeAction {
+    display: block;
+    margin: 1em 0;
+    color: @cPrimaryText;
+  }
+}
+
+#MergeClimbers {
+  width: 100%;
+  height: calc(~"100vh - " @headerHeight);
+  padding: 0;
+  .flexFlow(column);
+  >h1, >.fields {
+    margin: 1em;
+    flex: 0 0;
+  }
+  .actions {
+    margin-top: 1em;
+  }
+  [name=filter] {
+    width: 20em;
+    &+span:after {
+      .app-inline-icon("search");
+    }
+  }
+  >.list {
+    padding: 1em;
+    overflow: auto;
+    flex: 1;
+    margin-top: 1em;
+
+    [name=select] {
+      .md-checkbox();
+    }
+
+    tr {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .selected [name=select]:before {
+      content: "check_box";
+    }
+  }
+}

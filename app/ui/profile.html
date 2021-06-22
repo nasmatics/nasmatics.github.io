@@ -1,0 +1,49 @@
+<template name="Profile">
+  <section id="Profile" class="body">
+    <div>
+      <h1>{{name}}</h1>
+      <section class="body">
+      </section>
+    </div>
+  </section>
+
+  <template name="Index">
+    <section class="Index">
+      <form id="UserForm">
+        <fieldset class="fields">
+          {{labelField "name"}}
+          {{labelField "initials"}}
+          {{labelField "email"}}
+        </fieldset>
+        <fieldset class="actions">
+          <button type="submit">Update</button>
+          <button type="button" name="cancel">Reset</button>
+          {{pageLink value="Change password" template="Profile.ChangePassword"}}
+        </fieldset>
+      </form>
+    </section>
+  </template>
+
+  <template name="SignOutOthers">
+    <div id="SignOutOthers">
+      <p>Signing you out of any other sessions...</p>
+      <fieldset class="actions">
+        <button name="close">Close</button>
+      </fieldset>
+    </div>
+  </template>
+
+  <template name="ChangePassword">
+    <form id="ChangePassword">
+      <fieldset class="fields">
+        {{labelField "oldPassword" type="password"}}
+        {{labelField "newPassword" type="password"}}
+        {{labelField "confirm" type="password"}}
+      </fieldset>
+      <fieldset class="actions">
+        <button type="submit" disabled="disabled">Apply</button>
+        {{pageLink value="Cancel" template="Profile"}}
+      </fieldset>
+    </form>
+  </template>
+</template>

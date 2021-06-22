@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+cd "${0%/*}/.."
+
+pg_dump --no-owner --schema-only --no-acl pikidemo >db/schema.sql
+
+echo "Reset test"
+./scripts/reset-test

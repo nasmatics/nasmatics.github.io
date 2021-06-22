@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+. "${0%/*}"/../config/environ.sh $1
+
+exec_node $KORU_MODULE/scripts/bundle.js $KORU_ENV

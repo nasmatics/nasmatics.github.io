@@ -1,0 +1,26 @@
+@import "global.lessimport";
+
+#NetworkSync {
+  &:not(.show) {
+    display: none;
+  }
+  &:before {
+    .app-inline-icon("sync");
+  }
+
+  &[name="offline"] {
+    position: relative;
+    &:before {content: "sync_disabled"}
+  }
+
+  &[name="failure"] {
+    position: relative;
+    color: #f94;
+    &:before {
+      content: "sync_problem";
+    }
+    &:after {
+      content: attr(title);
+    }
+  }
+}

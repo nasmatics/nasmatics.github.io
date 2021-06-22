@@ -1,0 +1,148 @@
+<template name="Series">
+  <section id="Series">
+    <div>
+      <section class="tabbed list">
+        <div class="tabNames">
+          <button name="TeamResults" type="button" class="tab">Team Results</button>
+          <button name="Results" type="button" class="tab">Individual Results</button>
+          <button name="Events" type="button" class="tab">Events</button>
+          <button name="Edit" type="button" class="adminAccess tab">Edit</button>
+        </div>
+        <div id="SeriesBody" class="tabBody">
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <template name="Edit">
+    <form id="Edit">
+      <h1>Edit series</h1>
+      {{> ../Form}}
+      <fieldset class="actions">
+        <button type="submit" name="update">Update</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+  <template name="AddEvent">
+    <form id="AddEvent" class="series">
+      <h1>Add new event</h1>
+      {{> /Event.Form}}
+      <fieldset class="actions">
+        <button type="submit" name="create">Create</button>
+        <button type="button" name="cancel">Cancel</button>
+      </fieldset>
+    </form>
+  </template>
+
+
+  <template name="Form">
+    <fieldset class="fields">
+      {{labelField "name"}}
+      {{labelField "date" placeholder="yyyy-mm-dd"}}
+      <label><span class="name">Select team types for this series</span></label>
+      {{> /TeamHelper.AssignTeamTypes}}
+      {{labelField "closed" type="onOff" label="Event state" onLabel="closed" offLabel="open"}}
+    </fieldset>
+  </template>
+
+  <template name="Events">
+    <div class="Events">
+      <nav>
+        <button name="addEvent" class="adminAccess action" type="button">Add new event</button>
+      </nav>
+      <table class="select">
+        <thead>
+          <tr>
+            <th>Name</th><th>Start Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{each "list" template="Row"}}
+        </tbody>
+        <template name="Row">
+          <tr>
+            <td>{{displayName}}</td><td>{{date}}</td>
+          </tr>
+        </template>
+      </table>
+    </div>
+  </template>
+
+  <template name="Results">
+    <div id="Results" class="loading">
+      <div class="action">
+        {{content}}
+      </div>
+    </div>
+  </template>
+
+  <template name="TeamResults">
+    <div id="TeamResults" class="loading">
+      <table class="list">
+        <thead>
+          <tr>
+            <th class="name">{{selectedTeamType teamTypeList}}</th>
+            <th class="total">Total</th>
+            {{each "events" template="Header"}}
+            <template name="Header">
+              <th class="event">{{name}}</th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          {{each "teams" template="Row"}}
+          <template name="Row">
+            <tr>
+              <td class="name">{{team.name}}</td>
+              <td class="total">{{total}}</td>
+              {{each "events" template="Event"}}
+              <template name="Event">
+                <td class="event">{{points}}</td>
+              </template>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </template>
+
+  <template name="CatList">
+    <tr class="cat">
+      <td><span class="select"></span></td>
+      <td class="name">{{name}}</td>
+    </tr>
+  </template>
+
+  <template name="CatResult">
+    <div class="CatResult">
+      <h1>{{category.name}}</h1>
+      <table class="list">
+        <thead>
+          <tr>
+            <th class="name">Climber</th>
+            <th class="total">Points</th>
+            {{each "events" template="EventHeader"}}
+            <template name="EventHeader">
+              <th class="event">{{name}}</th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+        {{each "climbers" template="Row"}}
+        <template name="Row">
+          <tr>
+            <td class="name">{{climber.name}}</td>
+            <td class="total">{{total}}</td>
+            {{each "events" template="EventPoints"}}
+            <template name="EventPoints">
+              <td class="event">{{points}}</td>
+            </template>
+          </tr>
+        </template>
+        </tbody>
+      </table>
+    </div>
+  </template>
+</template>

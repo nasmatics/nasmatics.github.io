@@ -1,0 +1,20 @@
+@import "global.lessimport";
+
+.CrudPage {
+  table {
+    body:not(.aAccess) & tbody {
+      cursor: initial;
+    }
+  }
+  >div>.body {
+    padding: 2px 4px;
+    >:first-child>nav {
+      padding: 5px;
+      font-size: 1.2em;
+      >:not(:first-child) {
+        margin-left: 20px;
+
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@import "global.lessimport";
+
+
+body:not(.inOrg) #SystemSetup .menu>[name=addUser] {
+  display: none;
+}
+
+#SystemSetup>div {
+  padding: 4px;
+  h1 {
+    margin-top: 20px;
+  }
+  table.orgs {
+    body:not(sAccess) & {
+      cursor: inherit;
+    }
+  }
+  .menu>button {
+    margin-right: 2em;
+  }
+}

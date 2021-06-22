@@ -1,0 +1,88 @@
+#!/bin/bash
+set -e
+
+KORU_ENV=$1
+
+init() {
+    mkdir -p tmp
+    . config/environ.sh $KORU_ENV
+
+    appName=piki
+    staging=$PWD
+    appDir=$(realpath ..)
+
+    # setup systemctl
+    export XDG_RUNTIME_DIR="/run/user/$UID"
+    export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+
+    if [ ! -e $appDir/current ];then
+        createdb $KORU_DB || :
+    fi
+
+    nginxConf=/etc/nginx/conf.d/$appName.conf
+    serviceConf=$HOME/.config/systemd/user/$appName.service
+
+    rm -f ${nginxConf}~ ${serviceConf}~
+}
+
+completeConfig() {
+    echo "configure for $appName..."
+    echo "" >>build/version.sh
+    cat build/version.sh config/$KORU_ENV.sh >config/piki.sh
+    if [[ -e config/$KORU_ENV-config.js ]];then
+        mv config/$KORU_ENV-config.js config/piki-config.js
+    fi
+}
+
+configNginx() {
+    template=config/common-nginx.conf
+    srcConf=tmp/nginx.conf
+    destConf=$nginxConf
+
+    sed <$template >$srcConf \
+        -e "s/{{KORU_PORT}}/$KORU_PORT/g" -e "s/{{APP_DOMAIN}}/$APP_DOMAIN/g" \
+        -e "s/{{KORU_APP_NAME}}/$appName/g"
+    if test ! -e $destConf || ! diff -q $srcConf $destConf;then
+        mv -b $srcConf $destConf
+        sudo /bin/systemctl reload nginx
+    fi
+}
+
+installService() {
+    srcConf=config/piki.service
+    destConf=$serviceConf
+
+    if test ! -e $destConf || ! diff -q $srcConf $destConf;then
+        mv -b $srcConf $destConf
+        systemctl --user reenable $appName
+    fi
+}
+
+deploy() {
+    echo "starting..."
+    rm -rf $appDir/previous
+    test -e $appDir/current && mv -f $appDir/current $appDir/previous
+    mv $appDir/staging $appDir/current
+
+    systemctl --user start $appName
+}
+
+init
+
+completeConfig
+
+echo "stoping..."
+systemctl --user stop $appName || :
+
+if [[ -d $BACKUP_DIR ]]; then
+    buApp=$BACKUP_DIR/$appName
+    [[ -e $buApp/db ]] && rm -rf $buApp/db
+    mkdir -p $buApp
+    pg_dump --compress=9 --format=d --file=$buApp/db $appName
+fi
+
+configNginx
+installService
+
+deploy
+echo "done"
